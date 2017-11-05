@@ -1,19 +1,26 @@
 
 import static org.junit.Assert.assertEquals;
+
+import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  * This class will contain test cases for DKSwingData
  * @author Richard Dillon
  */
 public class DKSwingDataTest {
+
     DKSwingData dataObject;
     
     @Before
-    public void initialize() {
+    public void initialize() throws FileNotFoundException {
         dataObject = new DKSwingData("latestSwing.csv");
     }
     
@@ -31,13 +38,13 @@ public class DKSwingDataTest {
     
     @Test
     public void testSearchContinuityAboveValueAXThree() {
-        int index = dataObject.searchContinuityAboveValue(DKSwingData.AX, 0, 1500, 0, 700);
+        int index = dataObject.searchContinuityAboveValue(DKSwingData.AX, 0, 1275, 0, 700);
         assertEquals(index, 20);
     }
     
     @Test
     public void testSearchContinuityAboveValueAXFour() {
-        int index = dataObject.searchContinuityAboveValue(DKSwingData.AX, 0, 1500, 0, 800);
+        int index = dataObject.searchContinuityAboveValue(DKSwingData.AX, 0, 1275, 0, 800);
         assertEquals(index, -1);
     }
     
@@ -67,17 +74,21 @@ public class DKSwingDataTest {
 
     @Test
     public void testSearchMultiContinuityWithinRangeAXOne() {
-        ArrayList<ArrayList<Integer>> indexes = dataObject.searchMultiContinuityWithinRange(DKSwingData.AX, 0, 100, 1, 1.5, 5);
+        Collection<Pair<Integer, Integer>> indexes = dataObject.searchMultiContinuityWithinRange(DKSwingData.AX, 0, 100, 1, 1.5, 5);
         assertEquals(indexes.size(), 1);
-        assertEquals(indexes.get(0).get(0), new Integer(37));
-        assertEquals(indexes.get(0).get(1), new Integer(72));
+        Iterator<Pair<Integer, Integer>> it = indexes.iterator();
+        Pair p = it.next();
+        assertEquals(p.getKey(), new Integer(37));
+        assertEquals(p.getValue(), new Integer(72));
     }
 
     @Test
     public void testSearchMultiContinuityWithinRangeAXTwo() {
-        ArrayList<ArrayList<Integer>> indexes = dataObject.searchMultiContinuityWithinRange(DKSwingData.AX, 0, 100, 0.6, 1.5, 1);
+        Collection<Pair<Integer, Integer>> indexes = dataObject.searchMultiContinuityWithinRange(DKSwingData.AX, 0, 100, 0.6, 1.5, 1);
         assertEquals(indexes.size(), 3);
-        assertEquals(indexes.get(0).get(0), new Integer(29));
-        assertEquals(indexes.get(0).get(1), new Integer(90));
+        Iterator<Pair<Integer, Integer>> it = indexes.iterator();
+        Pair p = it.next();
+        assertEquals(p.getKey(), new Integer(29));
+        assertEquals(p.getValue(), new Integer(90));
     }
 }
