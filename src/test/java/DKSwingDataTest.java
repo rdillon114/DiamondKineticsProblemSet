@@ -78,8 +78,8 @@ public class DKSwingDataTest {
         assertEquals(indexes.size(), 1);
         Iterator<Pair<Integer, Integer>> it = indexes.iterator();
         Pair p = it.next();
-        assertEquals(p.getKey(), new Integer(37));
-        assertEquals(p.getValue(), new Integer(72));
+        assertEquals(p.getKey(), 37);
+        assertEquals(p.getValue(), 72);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class DKSwingDataTest {
         assertEquals(indexes.size(), 3);
         Iterator<Pair<Integer, Integer>> it = indexes.iterator();
         Pair p = it.next();
-        assertEquals(p.getKey(), new Integer(29));
-        assertEquals(p.getValue(), new Integer(90));
+        assertEquals(p.getKey(), 29);
+        assertEquals(p.getValue(), 90);
     }
 }
